@@ -12,7 +12,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = Customer::paginate(20);
+        return view('customer.index', compact('customers'));
     }
 
     /**
@@ -20,7 +21,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->route('home');
     }
 
     /**
@@ -36,7 +37,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return view('customer.show', compact('customer'));
     }
 
     /**

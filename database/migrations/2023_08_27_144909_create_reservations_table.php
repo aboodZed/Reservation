@@ -14,11 +14,14 @@ return new class extends Migration
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('customer_id')->unsigned();
-            $table->date('date');
+            $table->bigInteger('user_id')->unsigned();
+            $table->dateTime('from');
+            $table->dateTime('to');
             $table->double('cost');
             $table->timestamps();
 
             $table->foreign('customer_id')->references('id')->on('customers');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

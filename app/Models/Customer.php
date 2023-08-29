@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'id_number',
+        'phone',
+    ];
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'customer_id');
+    }
 }
