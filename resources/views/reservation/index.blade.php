@@ -13,22 +13,23 @@
             width: 100%;
             padding: auto;
             text-align: center;
+            background-color: whitesmoke;
         }
     </style>
 
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <h2 class="text-center mb-3">Reservations</h2>
+                <h2 class="text-center mb-3">{{ __('text.reservations') }}</h2>
                 <hr>
                 <table class="table">
                     <thead>
                         <tr class="table-danger">
                             <th>#</th>
-                            <th>Customer</th>
-                            <th>From</th>
-                            <th>To</th>
-                            <th>Cost</th>
+                            <th>{{ __('text.customer') }}</th>
+                            <th>{{ __('text.from') }}</th>
+                            <th>{{ __('text.to') }}</th>
+                            <th>{{ __('text.cost') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,6 +52,10 @@
                         @endforeach
                     </tbody>
                 </table>
+                @php
+                    $products = $res;
+                @endphp
+                @include('layouts.pagination')
             </div>
         </div>
     </div>
@@ -60,23 +65,23 @@
                 @csrf
                 <div class="row">
                     <div class="col-md-1">
-                        <label for="from">From:</label>
+                        <label for="from">{{ __('text.from') }}:</label>
                     </div>
                     <div class="col-md-2">
                         <input type="date" class="form-control" name="from" id="from">
                     </div>
                     <div class="col-md-1">
-                        <label for="to">To:</label>
+                        <label for="to">{{ __('text.to') }}:</label>
                     </div>
                     <div class="col-md-2">
                         <input type="date" class="form-control" name="to" id="to">
                     </div>
                     <div class="col-md-3">
                         <input type="checkbox" class="form-check-input" checked name="end" id="end">
-                        <label for="end">Contain To of the Reservations:</label>
+                        <label for="end">{{ __('text.contain_to') }}:</label>
                     </div>
                     <div class="col-md-3">
-                        <button type="submit" class="btn btn-danger w-100">Filter</button>
+                        <button type="submit" class="btn btn-danger w-100">{{ __('text.filter') }}</button>
                     </div>
                 </div>
             </form>

@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'phone',
+        'address',
+        'link',
+        'defult_reservation_hours',
+        'address',
         'password',
     ];
 
@@ -43,4 +47,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'user_id');
+    }
+
+    public function advertisement()
+    {
+        return $this->hasMany(Advertisement::class, 'user_id');
+    }
+
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }

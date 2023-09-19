@@ -8,11 +8,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ __('text.projectname') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="{{ asset('icon/home.svg') }}" sizes="16x16">
+    <link rel="icon" type="image/png" href="{{ asset('icon/home.svg') }}" sizes="32x32">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -30,7 +33,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="{{ asset('icon/home.svg') }}" alt="" width="20px" height="20px">
+                    {{ __('text.home') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -50,13 +54,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('text.login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('text.register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -67,12 +71,24 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('customer.index') }}">Customers</a>
-                                    <a class="dropdown-item" href="{{ route('reservation.index') }}">Reservations</a>
+                                    <a class="dropdown-item" href="{{ route('customer.index') }}">
+                                        <img src="{{ asset('icon/user.svg') }}" alt="" width="20px"
+                                            height="20px">
+                                        {{ __('text.customers') }}</a>
+                                    <a class="dropdown-item" href="{{ route('reservation.index') }}">
+                                        <img src="{{ asset('icon/bill.svg') }}" alt="" width="20px"
+                                            height="20px">
+                                        {{ __('text.reservations') }}</a>
+                                    <a class="dropdown-item" href="{{ route('place.edit') }}">
+                                        <img src="{{ asset('icon/user.svg') }}" alt="" width="20px"
+                                            height="20px">
+                                        {{ __('text.profile') }}</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <img src="{{ asset('icon/logout.svg') }}" alt="" width="20px"
+                                            height="20px">
+                                        {{ __('text.logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

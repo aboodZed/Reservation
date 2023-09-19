@@ -25,7 +25,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        $res = Reservation::paginate(30);
+        $res = Reservation::where('user_id', Auth::id())->paginate(30);
         return view('reservation.index', compact('res'));
     }
 
@@ -83,7 +83,11 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        return view('reservation.show', compact('reservation'));
+        if ($reservation->user_id == Auth::id()) {
+            return view('reservation.show', compact('reservation'));
+        } else {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -99,7 +103,22 @@ class ReservationController extends Controller
      */
     public function update(Request $request, Reservation $reservation)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'from' => 'required|date_format:Y-m-d\TH:i',
+            'to' => 'required|date_format:Y-m-d\TH:i',
+            'cost' => 'required|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors());
+        }
+
+        $reservation->from = $request->from;
+        $reservation->to = $request->to;
+        $reservation->cost = $request->cost;
+        $reservation->save();
+
+        return redirect()->back()->with('success', 'process complete successfully');
     }
 
     /**
@@ -122,14 +141,13 @@ class ReservationController extends Controller
             return redirect()->back()->withErrors($validator->errors());
         }
 
-        $res = Reservation::whereBetween('from', [$request->from, $request->to]);
-
-
-        if ($request->has('end')) {
-            $res->orWhereBetween('to', [$request->from, $request->to]);
-        }
-
-        $res = $res->paginate(20);
+        $res = Reservation::where('user_id', Auth::id())
+            ->where(function ($query) use ($request) {
+                $query->whereBetween('from', [$request->from, $request->to]);
+                if ($request->has('end')) {
+                    $query->orWhereBetween('to', [$request->from, $request->to]);
+                }
+            })->paginate(20);
 
         return view('reservation.index', compact('res'));
     }

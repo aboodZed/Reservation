@@ -4,16 +4,16 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <h2 class="text-center mb-3">Customers</h2>
+                <h2 class="text-center mb-3">{{ __('text.customers') }}</h2>
                 <hr>
                 <table class="table">
                     <thead>
                         <tr class="table-danger">
                             <th>#</th>
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>ID</th>
-                            <th>Reservation</th>
+                            <th>{{ __('text.name') }}</th>
+                            <th>{{ __('text.phone') }}</th>
+                            <th>{{ __('text.id') }}</th>
+                            <th>{{ __('text.reservations') }}</th>
                         </tr>
                     </thead>
                     <tbody>

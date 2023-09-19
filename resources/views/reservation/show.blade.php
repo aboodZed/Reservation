@@ -4,34 +4,48 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <h2 class="text-center mb-3">Reservation</h2>
+                <h2 class="text-center mb-3">{{ __('text.reservation') }}</h2>
                 <hr>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="table-danger">#</th>
-                            <td>{{ $reservation->id }}</td>
-                        </tr>
-                        <tr>
-                            <th class="table-danger">Customer:</th>
-                            <td><a
-                                    href="{{ route('customer.show', $reservation->customer_id) }}">{{ $reservation->customer->name }}</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="table-danger">From:</th>
-                            <td>{{ $reservation->from->format('d/m/Y - h:i a') }}</td>
-                        </tr>
-                        <tr>
-                            <th class="table-danger">To:</th>
-                            <td>{{ $reservation->to->format('d/m/Y - h:i a') }}</td>
-                        </tr>
-                        <tr>
-                            <th class="table-danger">Cost:</th>
-                            <td>{{ $reservation->cost }}</td>
-                        </tr>
-                    </thead>
-                </table>
+                <form action="{{ route('reservation.update', $reservation->id) }}" method="post">
+                    @method('PUT')
+                    @csrf
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="table-danger">#</th>
+                                <td>{{ $reservation->id }}</td>
+                            </tr>
+                            <tr>
+                                <th class="table-danger">{{ __('text.customer') }}:</th>
+                                <td><a
+                                        href="{{ route('customer.show', $reservation->customer_id) }}">{{ $reservation->customer->name }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="table-danger">{{ __('text.from') }}:</th>
+                                <td><input class="form-control" type="datetime-local" name="from" id="form"
+                                        value="{{ $reservation->from->format('Y-m-d H:i') }}" autofocus required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="table-danger">{{ __('text.to') }}:</th>
+                                <td><input class="form-control" type="datetime-local" name="to" id="to"
+                                        value="{{ $reservation->to->format('Y-m-d H:i') }}" required></td>
+                            </tr>
+                            <tr>
+                                <th class="table-danger">{{ __('text.cost') }}:</th>
+                                <td><input class="form-control" type="number" name="cost" id="cost" required
+                                        value="{{ $reservation->cost }}"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button class="btn btn-danger w-100" type="submit">{{ __('text.save') }}</button>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
+                </form>
             </div>
         </div>
     </div>
